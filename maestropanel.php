@@ -6,32 +6,32 @@
 // http://www.smyrna.com.tr/ - API Developer
 // Maestro Panel WHMCS API v1.0 by Smyrna Telekom
 ///////////////////////////////////////////////////////////////////////////
-  function maestro_configoptions ()
+  function maestropanel_configoptions ()
   {
     $configarray = array ('Domain Plan' => array ('Type' => 'text', 'Size' => '25'), 'Domain Plan Name' => array ('Type' => 'text', 'Size' => '25'));
     return $configarray;
   }
   
-    function maestro_clientarea ($params)
+    function maestropanel_clientarea ($params)
   {
-    $code = '<form action="http://' . $params['serverip'] . ':9715" method="get" target="_blank"><input type="submit" value="Login to Maestro Panel" class="button"></form>';
+    $code = '<form action="http://' . $params['serverip'] . ':9715" method="get" target="_blank"><input type="submit" value="Login to MaestroPanel" class="button"></form>';
     return $code;
   }
 
-  function maestro_adminlink ($params)
+  function maestropanel_adminlink ($params)
   {
     $code = '<form action="http://' . $params['serverip'] . ':9715" method="get" target="_blank"><input type="submit" value="Maestro Panel"></form>';
     return $code;
   }
   
-    function maestro_createaccount ($params)
+    function maestropanel_createaccount ($params)
   {
 	 
 	$query3 = 'UPDATE tblhosting SET domain=\'' . $params['domain'] . '\',username=\'' . $params['domain'] . '\' WHERE id=\'' . $params['accountid'] . '\'';
     $result3 = mysql_query ($query3);
 	  $module = 'Domain/Create';
 	  $packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'&planAlias='.$params['configoption2'].'&username='.$params['domain'].'&password='.$params['password'].'&firstname='.$params['clientsdetails']['firstname'].'&lastname='.$params['clientsdetails']['lastname'].'&email='.$params['clientsdetails']['email'].'&activedomainuser=true';
-      $retval = maestro_connection ($params, $module, $packet);
+      $retval = maestropanel_connection ($params, $module, $packet);
 	 if($retval['RESULT']['CODE'] != 0){
 		 $result = $retval['RESULT']['CODE'] . ' - ' . $retval['RESULT']['MESSAGE'];  
 	  } else {
@@ -41,11 +41,11 @@
 	return $result;
   }
   
-      function maestro_changepassword ($params)
+      function maestropanel_changepassword ($params)
   {
 	  $module = 'Domain/Password';
 	  $packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'&newpassword='.$params['password'].'';
-      $retval = maestro_connection ($params, $module, $packet);
+      $retval = maestropanel_connection ($params, $module, $packet);
 	 if($retval['RESULT']['CODE'] != 0){
 		 $result = $retval['RESULT']['CODE'] . ' - ' . $retval['RESULT']['MESSAGE'];  
 	  } else {
@@ -54,11 +54,11 @@
 
 	return $result;
   }
-    function maestro_terminateaccount ($params)
+    function maestropanel_terminateaccount ($params)
   {
 	  $module = 'Domain/Delete';
 	  $packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
-      $retval = maestro_connection ($params, $module, $packet);
+      $retval = maestropanel_connection ($params, $module, $packet);
 	 if($retval['RESULT']['CODE'] != 0){
 		 $result = $retval['RESULT']['CODE'] . ' - ' . $retval['RESULT']['MESSAGE'];  
 	  } else {
@@ -67,11 +67,11 @@
 
 	return $result;
   }
-      function maestro_suspendaccount ($params)
+      function maestropanel_suspendaccount ($params)
   {
 	  $module = 'Domain/Stop';
 	  $packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
-      $retval = maestro_connection ($params, $module, $packet);
+      $retval = maestropanel_connection ($params, $module, $packet);
 	 if($retval['RESULT']['CODE'] != 0){
 		 $result = $retval['RESULT']['CODE'] . ' - ' . $retval['RESULT']['MESSAGE'];  
 	  } else {
@@ -80,11 +80,11 @@
 	  
 	return $result;
   }
-      function maestro_unsuspendaccount ($params)
+      function maestropanel_unsuspendaccount ($params)
   {
 	  $module = 'Domain/Start';
 	  $packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
-      $retval = maestro_connection ($params, $module, $packet);
+      $retval = maestropanel_connection ($params, $module, $packet);
 	 if($retval['RESULT']['CODE'] != 0){
 		 $result = $retval['RESULT']['CODE'] . ' - ' . $retval['RESULT']['MESSAGE'];  
 	  } else {
@@ -93,7 +93,7 @@
 
 	return $result;
   }
-    function maestro_connection ($params, $module, $packet)
+    function maestropanel_connection ($params, $module, $packet)
   {
     global $debug_output;
     global $clientid;
