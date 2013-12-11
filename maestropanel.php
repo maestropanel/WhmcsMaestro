@@ -20,7 +20,7 @@
 
 	function maestropanel_adminlink ($params)
 	{
-		$code = '<form action="http://' . $params['serverip'] . ':9715/Auth/SignOn" method="get" target="_blank"><input type="hidden" name="username" value="' . $params['serverusername'] . '"><input type="hidden" name="password" value="' . $params['serverpassword'] . '"><input type="submit" value="Maestro Panel"></form>';
+		$code = '<form action="http://' . $params['serverip'] . ':9715/Auth/SignOn" method="get" target="_blank"><input type="hidden" name="username" value="' . $params['serverusername'] . '"><input type="hidden" name="password" value="' . $params['serverpassword'] . '"><input type="submit" value="MaestroPanel"></form>';
 		return $code;
 	}
   
@@ -56,13 +56,14 @@
 		if($params['type'] == 'reselleraccount')
 		{
 			$module = 'Reseller/ChangePassword'; 
+			$packet = 'key='.$params['serveraccesshash'].'&username='.$params['domain'].'&newpassword='.$params['password'].'';
 		}		
 		else 
 		{
 			$module = 'Domain/Password';
+			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'&newpassword='.$params['password'].'';
 		}
-		
-		$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'&newpassword='.$params['password'].'';
+				
 		$retval = maestropanel_connection ($params, $module, $packet);
 		
 		if($retval['Result']['ErrorCode'] != 0)
@@ -82,13 +83,14 @@
 		if($params['type'] == 'reselleraccount')
 		{
 			$module = 'Reseller/Stop'; 
+			$packet = 'key='.$params['serveraccesshash'].'&username='.$params['domain'].'';
 		}
 		else 
 		{
 			$module = 'Domain/Stop';
+			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
 		}
-
-		$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
+		
 		$retval = maestropanel_connection ($params, $module, $packet);
 
 		if($retval['Result']['ErrorCode'] != 0)
@@ -108,13 +110,15 @@
 		if($params['type'] == 'reselleraccount')
 		{
 			$module = 'Reseller/Stop'; 
+			$packet = 'key='.$params['serveraccesshash'].'&username='.$params['domain'].'';
 		}
 		else 
 		{
 			$module = 'Domain/Stop';
+			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
 		}
 		
-		$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
+		
 		$retval = maestropanel_connection ($params, $module, $packet);
 		
 		if($retval['Result']['ErrorCode'] != 0)
@@ -135,13 +139,15 @@
 		if($params['type'] == 'reselleraccount')
 		{
 			$module = 'Reseller/Start'; 
+			$packet = 'key='.$params['serveraccesshash'].'&username='.$params['domain'].'';
 		}
 		else 
 		{
 			$module = 'Domain/Start';
+			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
 		}
 		
-		$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
+		
 		$retval = maestropanel_connection ($params, $module, $packet);
 		
 		if($retval['Result']['ErrorCode'] != 0)
