@@ -194,6 +194,12 @@
 		curl_close ($ch);		
 		
 		$res = xmltoarray($retval);
+		
+		if(!array_key_exists('RESULT', $res))
+		{
+			$res = Array("RESULT" => Array("STATUSCODE" => 500, "ERRORCODE" => 9, "MESSAGE" => "Server Unreachable ". $params['serverip']));
+		}	
+		
 		logModuleCall( "maestropanel", $url, $packet, $retval, $res );
 		
 		return $res;
