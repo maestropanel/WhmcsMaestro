@@ -41,11 +41,14 @@
 		}
 
 		$retval = maestropanel_connection ($params, $module, $packet);
-		if($retval['Result']['ErrorCode'] != 0)
+		
+		if($retval['RESULT']['ERRORCODE'] != 0)
 		{
-			$result = $retval['Result']['ErrorCode'] . ' - ' . $retval['Result']['Message'];
-		} else {
-			$result = "success";
+			$result = $retval['RESULT']['MESSAGE'] .' ('. $retval['RESULT']['ERRORCODE'] .')';
+		}
+		else 
+		{
+			return "success";
 		}
 
 		return $result;
@@ -66,13 +69,13 @@
 				
 		$retval = maestropanel_connection ($params, $module, $packet);
 		
-		if($retval['Result']['ErrorCode'] != 0)
+		if($retval['RESULT']['ERRORCODE'] != 0)
 		{
-			$result = $retval['Result']['ErrorCode'] . ' - ' . $retval['Result']['Message'];
+			$result = $retval['RESULT']['MESSAGE'] .' ('. $retval['RESULT']['ERRORCODE'] .')';
 		}
-		else
+		else 
 		{
-			$result = "success";
+			return "success";
 		}
 
 		return $result;
@@ -87,19 +90,19 @@
 		}
 		else 
 		{
-			$module = 'Domain/Stop';
+			$module = 'Domain/Delete';
 			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
 		}
 		
 		$retval = maestropanel_connection ($params, $module, $packet);
 
-		if($retval['Result']['ErrorCode'] != 0)
+		if($retval['RESULT']['ERRORCODE'] != 0)
 		{
-			$result = $retval['Result']['ErrorCode'] . ' - ' . $retval['Result']['Message'];
-		} 
+			$result = $retval['RESULT']['MESSAGE'] .' ('. $retval['RESULT']['ERRORCODE'] .')';
+		}
 		else 
 		{
-			$result = "success";
+			return "success";
 		}
 
 		return $result;
@@ -121,13 +124,13 @@
 		
 		$retval = maestropanel_connection ($params, $module, $packet);
 		
-		if($retval['Result']['ErrorCode'] != 0)
+		if($retval['RESULT']['ERRORCODE'] != 0)
 		{
-			$result = $retval['Result']['ErrorCode'] . ' - ' . $retval['Result']['Message'];
-		} 
+			$result = $retval['RESULT']['MESSAGE'] .' ('. $retval['RESULT']['ERRORCODE'] .')';
+		}
 		else 
 		{
-			$result = "success";
+			return "success";
 		}
 
 		return $result;
@@ -146,17 +149,16 @@
 			$module = 'Domain/Start';
 			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'';
 		}
-		
-		
+				
 		$retval = maestropanel_connection ($params, $module, $packet);
 		
-		if($retval['Result']['ErrorCode'] != 0)
+		if($retval['RESULT']['ERRORCODE'] != 0)
 		{
-			$result = $retval['Result']['ErrorCode'] . ' - ' . $retval['Result']['Message'];
+			$result = $retval['RESULT']['MESSAGE'] .' ('. $retval['RESULT']['ERRORCODE'] .')';
 		}
 		else 
 		{
-			$result = "success";
+			return "success";
 		}
 
 		return $result;
@@ -183,16 +185,16 @@
 		curl_setopt ($ch, CURLOPT_POSTFIELDS, $packet);
 
 		$retval = curl_exec ($ch);
+		
 		if (curl_errno ($ch))
 		{
-			if ($debug_output == 'on')
-			{
-				echo '<textarea rows=2 cols=80>' . curl_errno ($ch) . ' - ' . curl_error ($ch) . '</textarea>';
-			}
+			echo '<textarea rows=2 cols=80>' . curl_errno ($ch) . ' - ' . curl_error ($ch) . '</textarea>';			
 		}
-		curl_close ($ch);
+		
+		curl_close ($ch);		
 		
 		$res = xmltoarray($retval);
+		logModuleCall( "maestropanel", $url, $packet, $retval, $res );
 		
 		return $res;
 	}
