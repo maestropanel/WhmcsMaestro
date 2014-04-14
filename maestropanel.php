@@ -206,11 +206,16 @@
 		
 		curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, false);
-		if($params['formtype'] == "get"){
-		curl_setopt ($ch, CURLOPT_URL, $url.'?'.$packet);
-		} else {
-		curl_setopt ($ch, CURLOPT_URL, $url);
+		
+		if($params['formtype'] == "get")
+		{
+			curl_setopt ($ch, CURLOPT_URL, $url.'?'.$packet);
+		} 
+		else 
+		{
+			curl_setopt ($ch, CURLOPT_URL, $url);
 		}
+		
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt ($ch, CURLOPT_TIMEOUT, 15);
 		
@@ -234,11 +239,6 @@
 		
 		curl_close ($ch);	
 		$res = xmltoarray($retval);
-	
-		if(!array_key_exists('RESULT', $res))
-		{
-			$res = Array("RESULT" => Array("STATUSCODE" => 500, "ERRORCODE" => 9, "MESSAGE" => "Server Unreachable ". $params['serverip']));
-		}	
 		
 		logModuleCall( "maestropanel", $url, $url.'?'.$packet, $retval, $res );
 		
