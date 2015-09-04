@@ -36,7 +36,7 @@
 		if ($params["type"] == "hostingaccount")
 		{
 			$module = 'Domain/Create';
-			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'&planAlias='.$params['configoption2'].'&username='.$params['domain'].'&password='.$params['password'].'&firstname='.$params['clientsdetails']['firstname'].'&lastname='.$params['clientsdetails']['lastname'].'&email='.$params['clientsdetails']['email'].'&activedomainuser=true';
+			$packet = 'key='.$params['serveraccesshash'].'&name='.$params['domain'].'&planAlias='.$params['configoption2'].'&username='.$params['username'].'&password='.$params['password'].'&firstname='.$params['clientsdetails']['firstname'].'&lastname='.$params['clientsdetails']['lastname'].'&email='.$params['clientsdetails']['email'].'&activedomainuser=true';
 		}
 		
 		$retval = maestropanel_connection ($params, $module, $packet);
