@@ -14,7 +14,15 @@
   
 	function maestropanel_clientarea ($params)
 	{
-		$code = '<form action="http://' . $params['serverip'] . ':9715/Auth/SignOn" method="post" target="_blank"><input type="hidden" name="username" value="' . $params['username'] . '"><input type="hidden" name="password" value="' . $params['password'] . '"><input type="submit" value="Login to MaestroPanel" class="button"></form>';
+		if($params['type'] == 'reselleraccount')
+		{	
+			$code = '<form action="http://' . $params['serverip'] . ':9715/Auth/SignOn" method="post" target="_blank"><input type="hidden" name="username" value="' . $params['username'] . '"><input type="hidden" name="password" value="' . $params['password'] . '"><input type="submit" value="Login to MaestroPanel" class="button"></form>';
+		}
+		if ($params["type"] == "hostingaccount")
+		{
+			$code = '<form action="http://' . $params['serverip'] . ':9715/Auth/SignOn" method="post" target="_blank"><input type="hidden" name="username" value="' . $params['domain'] . '"><input type="hidden" name="password" value="' . $params['password'] . '"><input type="submit" value="Login to MaestroPanel" class="button"></form>';			
+		}
+		
 		return $code;
 	}
 
